@@ -1,1 +1,172 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Mahasiswa UNPAM</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f0f4f8;
+            transition: background 0.5s;
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s forwards;
+        }
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .header {
+            background: #0d47a1;
+            color: #fff;
+            padding: 30px;
+            text-align: center;
+            transition: background 0.5s;
+        }
+        .header h1 { margin: 0; font-size: 28px; }
+        .header p { margin: 8px 0 0; font-size: 16px; }
+        .content { padding: 30px; }
+        .profile {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            gap: 25px;
+            align-items: center;
+            opacity: 0;
+            animation: fadeInUp 1s 0.3s forwards;
+        }
+        .photo {
+            width: 180px;
+            height: 220px;
+            border-radius: 10px;
+            background: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: #666;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .photo:hover { transform: scale(1.05); }
+        table { width: 100%; border-collapse: collapse; }
+        table td { padding: 8px 5px; vertical-align: top; }
+        table td:first-child { font-weight: bold; width: 180px; }
+        .section {
+            margin-top: 30px;
+            opacity: 0;
+            animation: fadeInUp 1s 0.6s forwards;
+        }
+        .section h2 {
+            border-left: 5px solid #0d47a1;
+            padding-left: 10px;
+            color: #0d47a1;
+            font-size: 20px;
+        }
+        .section ul li { transition: transform 0.3s; }
+        .section ul li:hover { transform: translateX(10px); color: #0d47a1; }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #f5f5f5;
+            font-size: 14px;
+            color: #555;
+        }
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.7); }
+        .modal-content { background: #fff; margin: 10% auto; padding: 20px; border-radius: 10px; width: 300px; text-align: center; position: relative; }
+        .close { position: absolute; top: 10px; right: 15px; font-size: 22px; cursor: pointer; }
+        body.dark { background: #121212; color: #e0e0e0; }
+        body.dark .container { background: #1e1e1e; }
+        body.dark .header { background: #0d47a1; }
+        body.dark .footer { background: #1e1e1e; color: #aaa; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header" id="header">
+        <h1>Profil Mahasiswa</h1>
+        <p>Universitas Pamulang (UNPAM)</p>
+    </div>
+
+    <div class="content">
+        <div class="profile">
+            <<img src="1.jpeg" alt="Foto Mahasiswa" class="photo" id="photo">
+
+            <div>
+                <table>
+                    <tr><td>Nama Lengkap</td><td>: Muhajirin</td></tr>
+                    <tr><td>NIM</td><td>: 231011402171</td></tr>
+                    <tr><td>Universitas</td><td>: Universitas Pamulang</td></tr>
+                    <tr><td>Program Studi</td><td>: (Isi Program Studi)</td></tr>
+                    <tr><td>Mata Kuliah</td><td>: Program Web</td></tr>
+                    <tr><td>Dosen Pengampu</td><td>: : LELY PANCA ANDRIYANTO S.Kom </td></tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Tentang Saya</h2>
+            <p>Saya adalah mahasiswa Universitas Pamulang yang memiliki minat dalam bidang teknologi informasi, pengembangan web, dan aplikasi. Aktif mempelajari HTML, CSS, JavaScript, PHP, dan MySQL.</p>
+        </div>
+
+        <div class="section">
+            <h2>Keahlian</h2>
+            <ul id="skills">
+                <li>HTML, CSS, dan JavaScript</li>
+                <li>PHP & MySQL</li>
+                <li>Pengembangan Aplikasi Web</li>
+                <li>Dasar Pemrograman dan Sistem Informasi</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer">
+        &copy; 2025 Profil Mahasiswa UNPAM | Muhajirin | <button id="toggleMode">Toggle Dark Mode</button>
+    </div>
+</div>
+
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="closeModal">&times;</span>
+    <p>Ini adalah foto Muhajirin, mahasiswa UNPAM.</p>
+  </div>
+</div>
+
+<script>
+    // Hover header
+    const header = document.getElementById('header');
+    header.addEventListener('mouseover', () => header.style.background = '#1565c0');
+    header.addEventListener('mouseout', () => header.style.background = '#0d47a1');
+
+    // Modal foto
+    const photo = document.getElementById('photo');
+    const modal = document.getElementById('modal');
+    const closeModal = document.getElementById('closeModal');
+    photo.addEventListener('click', () => modal.style.display = 'block');
+    closeModal.addEventListener('click', () => modal.style.display = 'none');
+    window.addEventListener('click', e => { if(e.target == modal) modal.style.display = 'none'; });
+
+    // Tambah skill baru
+    const skills = document.getElementById('skills');
+    const newSkill = document.createElement('li');
+    newSkill.textContent = 'Manajemen Proyek & Agile';
+    skills.appendChild(newSkill);
+
+    // Toggle dark mode
+    const toggleMode = document.getElementById('toggleMode');
+    toggleMode.addEventListener('click', () => document.body.classList.toggle('dark'));
+</script>
+
+</body>
+</html>
 
